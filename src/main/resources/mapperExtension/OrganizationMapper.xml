@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.biber.sugw.mappers.mapperExtension.OrganizationMapperExtension">
+
+    <select id="findByName" parameterType="java.lang.String" resultType="com.biber.sugw.dao.Organization">
+        select *
+        from organization
+        where orgName = #{name}
+           or branchName = #{name}
+    </select>
+
+</mapper>

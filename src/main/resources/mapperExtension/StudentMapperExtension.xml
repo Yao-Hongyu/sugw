@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.biber.sugw.mappers.mapperExtension.StudentMapperExtension">
+
+    <resultMap id="StudentMapper" type="com.biber.sugw.vo.StudentVo">
+        <id property="stdId" column="stdId"/>
+        <result property="stdName" column="stdName"/>
+        <result property="major" column="major"/>
+        <result property="classNum" column="classNum"/>
+        <result property="stdQQ" column="stdQQ"/>
+        <result property="stdPhone" column="stdPhone"/>
+        <result property="isDispensing" column="isDispensing"/>
+        <association property="firstWill" javaType="com.biber.sugw.vo.StudentVo$Will">
+            <id property="organization" column="organizationFirst"/>
+            <result property="branch" column="branchFirst"/>
+            <result property="reason" column="reasonFirst"/>
+        </association>
+        <association property="secondWill" javaType="com.biber.sugw.vo.StudentVo$Will">
+            <id property="organization" column="organizationSecond"/>
+            <result property="branch" column="branchSecond"/>
+            <result property="reason" column="reasonSecond"/>
+        </association>
+    </resultMap>
+
+    <select id="getAllWithOrganizationAndBranchAndMajor" resultMap="StudentMapper">
+        select stdId,
+               stdName,
+               d.majorName as major,
+               classNum,
+               stdQQ,
+               stdPhone,
+               b.orgName    organizationFirst,
+               b.branchName branchFirst,
+               reasonFirst,
+               c.orgName    organizationSecond,
+               c.branchName branchSecond,
+               reasonSecond,
+               isDispensing
+        from student a,
+             organization b,
+             organization c,
+             major d
+        where a.willFirst = b.orgId
+          and a.willSecond = c.orgId
+          and a.major = d.majorId
+        order by stdId;
+    </select>
+
+    <select id="getByWillWithOrganizationAndBranchAndMajor" parameterType="java.util.List" resultMap="StudentMapper">
+        select stdId,
+        stdName,
+        d.majorName as major,
+        classNum,
+        stdQQ,
+        stdPhone,
+        b.orgName organizationFirst,
+        b.branchName branchFirst,
+        reasonFirst,
+        c.orgName organizationSecond,
+        c.branchName branchSecond,
+        reasonSecond,
+        isDispensing
+        from (select * from student where willFirst in
+        <foreach collection="list" item="item" index="index" open="(" separator="," close=")">#{item}</foreach>
+        or
+        willSecond in <foreach collection="list" item="item" index="index" open="(" separator="," close=")">#{item}
+    </foreach>) a,
+        organization b,
+        organization c,
+             major d
+        where a.willFirst = b.orgId
+        and a.willSecond = c.orgId
+        and a.major = d.majorId
+        order by stdId
+    </select>
+
+</mapper>
