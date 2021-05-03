@@ -30,12 +30,12 @@ public class AdminServiceImpl implements AdminService {
     private OrganizationMapperExtension organizationMapperExtension;
 
     @Override
-    public CommonResultVo getAllStuInfo(GetAllStuInfoDto getAllStuInfoDto) {
-        String token = getAllStuInfoDto.getToken();
+    public CommonResultVo getAllStuInfo(String token,Integer page,Integer pageSize) {
+//        String token = getAllStuInfoDto.getToken();
         if (JwtUtil.verity(token)) {
             //数据拆箱
-            Integer page = getAllStuInfoDto.getPage();
-            Integer pageSize = getAllStuInfoDto.getPageSize();
+//            Integer page = getAllStuInfoDto.getPage();
+//            Integer pageSize = getAllStuInfoDto.getPageSize();
 
             //获取全部学生信息
             List<StudentVo> allWithOrganizationAndBranchAndMajor = studentMapperExtension.getAllWithOrganizationAndBranchAndMajor();
@@ -61,13 +61,13 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public CommonResultVo getStuInfo(GetStuInfoDto getStuInfoDto) {
-        String token = getStuInfoDto.getToken();
+    public CommonResultVo getStuInfo(String token,String keyWord,Integer page,Integer pageSize) {
+//        String token = getStuInfoDto.getToken();
         if (JwtUtil.verity(token)) {
             //数据拆箱
-            String keyWord = getStuInfoDto.getKeyWord();
-            Integer page = getStuInfoDto.getPage();
-            Integer pageSize = getStuInfoDto.getPageSize();
+//            String keyWord = getStuInfoDto.getKeyWord();
+//            Integer page = getStuInfoDto.getPage();
+//            Integer pageSize = getStuInfoDto.getPageSize();
 
             //检查数据
             if (keyWord == "" || keyWord == null || page == 0 || pageSize == 0) return CommonResultVo.FormError();

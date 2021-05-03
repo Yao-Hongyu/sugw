@@ -1,10 +1,8 @@
 package com.biber.sugw.dao;
 
-import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-
 import java.io.Serializable;
-@ApiModel("学生实体类")
+
 public class Student implements Serializable {
     @ApiModelProperty(value = "学生id")
     private Integer stdid;
@@ -12,13 +10,13 @@ public class Student implements Serializable {
     @ApiModelProperty(value = "学生姓名")
     private String stdname;
 
-    @ApiModelProperty(value = "学生专业")
+    @ApiModelProperty(value = "专业")
     private Integer major;
 
-    @ApiModelProperty(value = "学生班级")
+    @ApiModelProperty(value = "班级")
     private String classnum;
 
-    @ApiModelProperty(value = "学生qq")
+    @ApiModelProperty(value = "qq")
     private String stdqq;
 
     @ApiModelProperty(value = "手机号")
@@ -27,17 +25,19 @@ public class Student implements Serializable {
     @ApiModelProperty(value = "第一志愿")
     private Integer willfirst;
 
-    @ApiModelProperty(value = "第一志愿原因")
-    private String reasonfirst;
-
     @ApiModelProperty(value = "第二志愿")
     private Integer willsecond;
+
+    @ApiModelProperty(value = "是否调剂")
+    private String isdispensing;
+
+    @ApiModelProperty(value = "第一志愿原因")
+    private String reasonfirst;
 
     @ApiModelProperty(value = "第二志愿原因")
     private String reasonsecond;
 
-    @ApiModelProperty(value = "是否调剂")
-    private String isdispensing;
+    private static final long serialVersionUID = 1L;
 
     public Integer getStdid() {
         return stdid;
@@ -95,14 +95,6 @@ public class Student implements Serializable {
         this.willfirst = willfirst;
     }
 
-    public String getReasonfirst() {
-        return reasonfirst;
-    }
-
-    public void setReasonfirst(String reasonfirst) {
-        this.reasonfirst = reasonfirst;
-    }
-
     public Integer getWillsecond() {
         return willsecond;
     }
@@ -111,20 +103,28 @@ public class Student implements Serializable {
         this.willsecond = willsecond;
     }
 
-    public String getReasonsecond() {
-        return reasonsecond;
-    }
-
-    public void setReasonsecond(String reasonsecond) {
-        this.reasonsecond = reasonsecond;
-    }
-
     public String getIsdispensing() {
         return isdispensing;
     }
 
     public void setIsdispensing(String isdispensing) {
         this.isdispensing = isdispensing;
+    }
+
+    public String getReasonfirst() {
+        return reasonfirst;
+    }
+
+    public void setReasonfirst(String reasonfirst) {
+        this.reasonfirst = reasonfirst;
+    }
+
+    public String getReasonsecond() {
+        return reasonsecond;
+    }
+
+    public void setReasonsecond(String reasonsecond) {
+        this.reasonsecond = reasonsecond;
     }
 
     @Override
@@ -140,10 +140,10 @@ public class Student implements Serializable {
         sb.append(", stdqq=").append(stdqq);
         sb.append(", stdphone=").append(stdphone);
         sb.append(", willfirst=").append(willfirst);
-        sb.append(", reasonfirst=").append(reasonfirst);
         sb.append(", willsecond=").append(willsecond);
-        sb.append(", reasonsecond=").append(reasonsecond);
         sb.append(", isdispensing=").append(isdispensing);
+        sb.append(", reasonfirst=").append(reasonfirst);
+        sb.append(", reasonsecond=").append(reasonsecond);
         sb.append("]");
         return sb.toString();
     }

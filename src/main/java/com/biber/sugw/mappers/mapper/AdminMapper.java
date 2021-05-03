@@ -3,10 +3,8 @@ package com.biber.sugw.mappers.mapper;
 import com.biber.sugw.dao.Admin;
 import com.biber.sugw.dao.AdminExample;
 import java.util.List;
-
-import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
-@Mapper
+
 public interface AdminMapper {
     long countByExample(AdminExample example);
 

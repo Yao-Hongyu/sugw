@@ -1,10 +1,8 @@
 package com.biber.sugw.dao;
 
-import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-
 import java.io.Serializable;
-@ApiModel("管理员实体类")
+
 public class Admin implements Serializable {
     @ApiModelProperty(value = "管理员id")
     private Integer id;
@@ -15,8 +13,10 @@ public class Admin implements Serializable {
     @ApiModelProperty(value = "管理员密码")
     private String password;
 
-    @ApiModelProperty(value = "角色")
+    @ApiModelProperty(value = "管理员角色")
     private String role;
+
+    private static final long serialVersionUID = 1L;
 
     public Integer getId() {
         return id;

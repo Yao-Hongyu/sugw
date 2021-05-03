@@ -9,10 +9,12 @@
     <result column="stdQQ" jdbcType="VARCHAR" property="stdqq" />
     <result column="stdPhone" jdbcType="VARCHAR" property="stdphone" />
     <result column="willFirst" jdbcType="INTEGER" property="willfirst" />
-    <result column="reasonFirst" jdbcType="VARCHAR" property="reasonfirst" />
     <result column="willSecond" jdbcType="INTEGER" property="willsecond" />
-    <result column="reasonSecond" jdbcType="VARCHAR" property="reasonsecond" />
     <result column="isDispensing" jdbcType="VARCHAR" property="isdispensing" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.biber.sugw.dao.Student">
+    <result column="reasonFirst" jdbcType="LONGVARCHAR" property="reasonfirst" />
+    <result column="reasonSecond" jdbcType="LONGVARCHAR" property="reasonsecond" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -73,9 +75,27 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    stdId, stdName, major, classNum, stdQQ, stdPhone, willFirst, reasonFirst, willSecond, 
-    reasonSecond, isDispensing
+    stdId, stdName, major, classNum, stdQQ, stdPhone, willFirst, willSecond, isDispensing
   </sql>
+  <sql id="Blob_Column_List">
+    reasonFirst, reasonSecond
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="com.biber.sugw.dao.StudentExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from student
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
   <select id="selectByExample" parameterType="com.biber.sugw.dao.StudentExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
@@ -90,9 +110,11 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
     select 
     <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
     from student
     where stdId = #{stdid,jdbcType=INTEGER}
   </select>
@@ -109,12 +131,12 @@
   <insert id="insert" parameterType="com.biber.sugw.dao.Student">
     insert into student (stdId, stdName, major, 
       classNum, stdQQ, stdPhone, 
-      willFirst, reasonFirst, willSecond, 
-      reasonSecond, isDispensing)
+      willFirst, willSecond, isDispensing, 
+      reasonFirst, reasonSecond)
     values (#{stdid,jdbcType=INTEGER}, #{stdname,jdbcType=VARCHAR}, #{major,jdbcType=INTEGER}, 
       #{classnum,jdbcType=VARCHAR}, #{stdqq,jdbcType=VARCHAR}, #{stdphone,jdbcType=VARCHAR}, 
-      #{willfirst,jdbcType=INTEGER}, #{reasonfirst,jdbcType=VARCHAR}, #{willsecond,jdbcType=INTEGER}, 
-      #{reasonsecond,jdbcType=VARCHAR}, #{isdispensing,jdbcType=VARCHAR})
+      #{willfirst,jdbcType=INTEGER}, #{willsecond,jdbcType=INTEGER}, #{isdispensing,jdbcType=VARCHAR}, 
+      #{reasonfirst,jdbcType=LONGVARCHAR}, #{reasonsecond,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.biber.sugw.dao.Student">
     insert into student
@@ -140,17 +162,17 @@
       <if test="willfirst != null">
         willFirst,
       </if>
-      <if test="reasonfirst != null">
-        reasonFirst,
-      </if>
       <if test="willsecond != null">
         willSecond,
       </if>
-      <if test="reasonsecond != null">
-        reasonSecond,
-      </if>
       <if test="isdispensing != null">
         isDispensing,
+      </if>
+      <if test="reasonfirst != null">
+        reasonFirst,
+      </if>
+      <if test="reasonsecond != null">
+        reasonSecond,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -175,17 +197,17 @@
       <if test="willfirst != null">
         #{willfirst,jdbcType=INTEGER},
       </if>
-      <if test="reasonfirst != null">
-        #{reasonfirst,jdbcType=VARCHAR},
-      </if>
       <if test="willsecond != null">
         #{willsecond,jdbcType=INTEGER},
       </if>
-      <if test="reasonsecond != null">
-        #{reasonsecond,jdbcType=VARCHAR},
-      </if>
       <if test="isdispensing != null">
         #{isdispensing,jdbcType=VARCHAR},
+      </if>
+      <if test="reasonfirst != null">
+        #{reasonfirst,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="reasonsecond != null">
+        #{reasonsecond,jdbcType=LONGVARCHAR},
       </if>
     </trim>
   </insert>
@@ -219,19 +241,36 @@
       <if test="record.willfirst != null">
         willFirst = #{record.willfirst,jdbcType=INTEGER},
       </if>
-      <if test="record.reasonfirst != null">
-        reasonFirst = #{record.reasonfirst,jdbcType=VARCHAR},
-      </if>
       <if test="record.willsecond != null">
         willSecond = #{record.willsecond,jdbcType=INTEGER},
-      </if>
-      <if test="record.reasonsecond != null">
-        reasonSecond = #{record.reasonsecond,jdbcType=VARCHAR},
       </if>
       <if test="record.isdispensing != null">
         isDispensing = #{record.isdispensing,jdbcType=VARCHAR},
       </if>
+      <if test="record.reasonfirst != null">
+        reasonFirst = #{record.reasonfirst,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.reasonsecond != null">
+        reasonSecond = #{record.reasonsecond,jdbcType=LONGVARCHAR},
+      </if>
     </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update student
+    set stdId = #{record.stdid,jdbcType=INTEGER},
+      stdName = #{record.stdname,jdbcType=VARCHAR},
+      major = #{record.major,jdbcType=INTEGER},
+      classNum = #{record.classnum,jdbcType=VARCHAR},
+      stdQQ = #{record.stdqq,jdbcType=VARCHAR},
+      stdPhone = #{record.stdphone,jdbcType=VARCHAR},
+      willFirst = #{record.willfirst,jdbcType=INTEGER},
+      willSecond = #{record.willsecond,jdbcType=INTEGER},
+      isDispensing = #{record.isdispensing,jdbcType=VARCHAR},
+      reasonFirst = #{record.reasonfirst,jdbcType=LONGVARCHAR},
+      reasonSecond = #{record.reasonsecond,jdbcType=LONGVARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -245,9 +284,7 @@
       stdQQ = #{record.stdqq,jdbcType=VARCHAR},
       stdPhone = #{record.stdphone,jdbcType=VARCHAR},
       willFirst = #{record.willfirst,jdbcType=INTEGER},
-      reasonFirst = #{record.reasonfirst,jdbcType=VARCHAR},
       willSecond = #{record.willsecond,jdbcType=INTEGER},
-      reasonSecond = #{record.reasonsecond,jdbcType=VARCHAR},
       isDispensing = #{record.isdispensing,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -274,19 +311,33 @@
       <if test="willfirst != null">
         willFirst = #{willfirst,jdbcType=INTEGER},
       </if>
-      <if test="reasonfirst != null">
-        reasonFirst = #{reasonfirst,jdbcType=VARCHAR},
-      </if>
       <if test="willsecond != null">
         willSecond = #{willsecond,jdbcType=INTEGER},
-      </if>
-      <if test="reasonsecond != null">
-        reasonSecond = #{reasonsecond,jdbcType=VARCHAR},
       </if>
       <if test="isdispensing != null">
         isDispensing = #{isdispensing,jdbcType=VARCHAR},
       </if>
+      <if test="reasonfirst != null">
+        reasonFirst = #{reasonfirst,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="reasonsecond != null">
+        reasonSecond = #{reasonsecond,jdbcType=LONGVARCHAR},
+      </if>
     </set>
+    where stdId = #{stdid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.biber.sugw.dao.Student">
+    update student
+    set stdName = #{stdname,jdbcType=VARCHAR},
+      major = #{major,jdbcType=INTEGER},
+      classNum = #{classnum,jdbcType=VARCHAR},
+      stdQQ = #{stdqq,jdbcType=VARCHAR},
+      stdPhone = #{stdphone,jdbcType=VARCHAR},
+      willFirst = #{willfirst,jdbcType=INTEGER},
+      willSecond = #{willsecond,jdbcType=INTEGER},
+      isDispensing = #{isdispensing,jdbcType=VARCHAR},
+      reasonFirst = #{reasonfirst,jdbcType=LONGVARCHAR},
+      reasonSecond = #{reasonsecond,jdbcType=LONGVARCHAR}
     where stdId = #{stdid,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.biber.sugw.dao.Student">
@@ -297,9 +348,7 @@
       stdQQ = #{stdqq,jdbcType=VARCHAR},
       stdPhone = #{stdphone,jdbcType=VARCHAR},
       willFirst = #{willfirst,jdbcType=INTEGER},
-      reasonFirst = #{reasonfirst,jdbcType=VARCHAR},
       willSecond = #{willsecond,jdbcType=INTEGER},
-      reasonSecond = #{reasonsecond,jdbcType=VARCHAR},
       isDispensing = #{isdispensing,jdbcType=VARCHAR}
     where stdId = #{stdid,jdbcType=INTEGER}
   </update>

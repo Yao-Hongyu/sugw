@@ -310,7 +310,6 @@ public class OrganizationExample {
         protected Criteria() {
             super();
         }
-
     }
 
     public static class Criterion {

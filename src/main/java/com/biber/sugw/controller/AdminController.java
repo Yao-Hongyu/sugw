@@ -28,10 +28,10 @@ public class AdminController {
                                         @NotNull @RequestParam @ApiParam("页码") Integer page, @NotNull @RequestParam @ApiParam("每页数量") Integer pageSize){
         if (getAllStuInfoDto == null) return CommonResultVo.FormError();
 
-        getAllStuInfoDto.setPage(page);
-        getAllStuInfoDto.setPageSize(pageSize);
+//        getAllStuInfoDto.setPage(page);
+//        getAllStuInfoDto.setPageSize(pageSize);
 
-        return adminService.getAllStuInfo(getAllStuInfoDto);
+        return adminService.getAllStuInfo(getAllStuInfoDto.getToken(),page,pageSize);
 
     }
 
@@ -40,10 +40,10 @@ public class AdminController {
     public CommonResultVo getStuInfo(@Validated @RequestBody GetStuInfoDto getStuInfoDto,@NotNull @RequestParam @ApiParam("页码") Integer page,@NotNull @RequestParam @ApiParam("每页数量") Integer pageSize){
 
         if (getStuInfoDto == null) return CommonResultVo.FormError();
-        getStuInfoDto.setPage(page);
-        getStuInfoDto.setPageSize(pageSize);
+//        getStuInfoDto.setPage(page);
+//        getStuInfoDto.setPageSize(pageSize);
 
-        return adminService.getStuInfo(getStuInfoDto);
+        return adminService.getStuInfo(getStuInfoDto.getToken(),getStuInfoDto.getKeyWord(),page,pageSize);
     }
 
 }

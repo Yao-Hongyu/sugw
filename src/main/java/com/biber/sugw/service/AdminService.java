@@ -9,11 +9,11 @@ public interface AdminService {
     /**
      * 1.全表查询
      */
-    public CommonResultVo getAllStuInfo(GetAllStuInfoDto getAllStuInfoDto);
+    public CommonResultVo getAllStuInfo(String token,Integer page,Integer pageSize);
 
     /**
      * 2.关键字查询
      */
-    public CommonResultVo getStuInfo(GetStuInfoDto getStuInfoDto);
+    public CommonResultVo getStuInfo(String token,String keyWord,Integer page,Integer pageSize);
 
 }

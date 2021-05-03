@@ -1,16 +1,16 @@
 package com.biber.sugw.dao;
 
-import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-
 import java.io.Serializable;
-@ApiModel("专业实体类")
+
 public class Major implements Serializable {
     @ApiModelProperty(value = "专业id")
     private Integer majorid;
 
     @ApiModelProperty(value = "专业名")
     private String majorname;
+
+    private static final long serialVersionUID = 1L;
 
     public Integer getMajorid() {
         return majorid;
