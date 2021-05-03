@@ -1,12 +1,18 @@
 package com.biber.sugw.dao;
 
+import io.swagger.annotations.ApiModelProperty;
+
 public class Admin {
+    @ApiModelProperty(value = "管理员id")
     private Integer id;
 
+    @ApiModelProperty(value = "管理员用户名")
     private String username;
 
+    @ApiModelProperty(value = "管理员密码")
     private String password;
 
+    @ApiModelProperty(value = "角色")
     private String role;
 
     public Integer getId() {

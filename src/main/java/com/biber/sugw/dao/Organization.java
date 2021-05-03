@@ -1,10 +1,15 @@
 package com.biber.sugw.dao;
 
+import io.swagger.annotations.ApiModelProperty;
+
 public class Organization {
+    @ApiModelProperty(value = "组织id")
     private Integer orgid;
 
+    @ApiModelProperty(value = "组织名")
     private String orgname;
 
+    @ApiModelProperty(value = "部门名")
     private String branchname;
 
     public Integer getOrgid() {

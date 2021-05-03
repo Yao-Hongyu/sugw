@@ -5,12 +5,15 @@ import com.biber.sugw.dto.GetStuInfoDto;
 import com.biber.sugw.service.AdminService;
 import com.biber.sugw.vo.CommonResultVo;
 import com.biber.sugw.vo.GetAllStuInfoVo;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.constraints.NotNull;
 
+@Api(tags = "AdminController",description = "管理员功能")
 @RestController
 @CrossOrigin("*")
 public class AdminController {
@@ -18,6 +21,7 @@ public class AdminController {
     @Autowired
     private AdminService adminService;
 
+    @ApiOperation("获取所有学生信息")
     @PostMapping("/getAllStuInfo")
     public CommonResultVo getAllStuInfo(@Validated @RequestBody GetAllStuInfoDto getAllStuInfoDto,
                                         @NotNull @RequestParam Integer page,@NotNull @RequestParam Integer pageSize){
@@ -30,6 +34,7 @@ public class AdminController {
 
     }
 
+    @ApiOperation("关键字搜索")
     @PostMapping("/getStuInfo")
     public CommonResultVo getStuInfo(@Validated @RequestBody GetStuInfoDto getStuInfoDto,@NotNull @RequestParam Integer page,@NotNull @RequestParam Integer pageSize){
 

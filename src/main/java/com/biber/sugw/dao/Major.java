@@ -1,8 +1,12 @@
 package com.biber.sugw.dao;
 
+import io.swagger.annotations.ApiModelProperty;
+
 public class Major {
+    @ApiModelProperty(value = "专业id")
     private Integer majorid;
 
+    @ApiModelProperty(value = "专业名")
     private String majorname;
 
     public Integer getMajorid() {

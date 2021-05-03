@@ -1,26 +1,39 @@
 package com.biber.sugw.dao;
 
+import io.swagger.annotations.ApiModelProperty;
+
 public class Student {
+    @ApiModelProperty(value = "学生id")
     private Integer stdid;
 
+    @ApiModelProperty(value = "学生姓名")
     private String stdname;
 
+    @ApiModelProperty(value = "学生专业")
     private Integer major;
 
+    @ApiModelProperty(value = "学生班级")
     private String classnum;
 
+    @ApiModelProperty(value = "学生qq")
     private String stdqq;
 
+    @ApiModelProperty(value = "手机号")
     private String stdphone;
 
+    @ApiModelProperty(value = "第一志愿")
     private Integer willfirst;
 
+    @ApiModelProperty(value = "第一志愿原因")
     private String reasonfirst;
 
+    @ApiModelProperty(value = "第二志愿")
     private Integer willsecond;
 
+    @ApiModelProperty(value = "第二志愿原因")
     private String reasonsecond;
 
+    @ApiModelProperty(value = "是否调剂")
     private String isdispensing;
 
     public Integer getStdid() {
