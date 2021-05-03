@@ -1,8 +1,11 @@
 package com.biber.sugw.dao;
 
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
-public class Organization {
+import java.io.Serializable;
+@ApiModel("组织实体类")
+public class Organization implements Serializable {
     @ApiModelProperty(value = "组织id")
     private Integer orgid;
 

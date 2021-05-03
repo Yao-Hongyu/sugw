@@ -1,10 +1,13 @@
 package com.biber.sugw.config;
 
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
+import springfox.documentation.oas.annotations.EnableOpenApi;
 import springfox.documentation.service.ApiInfo;
 import springfox.documentation.service.Contact;
 import springfox.documentation.spi.DocumentationType;
@@ -15,7 +18,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
  * @author biber
  */
 @Configuration
-@EnableSwagger2
+@EnableOpenApi
 public class SwaggerConfig {
 
     @Bean
@@ -23,7 +26,7 @@ public class SwaggerConfig {
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(apiInfo())
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("con.biber.sugw.controller"))
+                .apis(RequestHandlerSelectors.basePackage("com.biber.sugw.controller"))
                 .paths(PathSelectors.any())
                 .build();
     }
@@ -32,7 +35,6 @@ public class SwaggerConfig {
         return new ApiInfoBuilder()
                 .title("SwaggerUI")
                 .description("sugw")
-                .contact(new Contact("biber",null,null))
                 .version("1.0")
                 .build();
     }

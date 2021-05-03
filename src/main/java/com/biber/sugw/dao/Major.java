@@ -1,8 +1,11 @@
 package com.biber.sugw.dao;
 
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
-public class Major {
+import java.io.Serializable;
+@ApiModel("专业实体类")
+public class Major implements Serializable {
     @ApiModelProperty(value = "专业id")
     private Integer majorid;
 

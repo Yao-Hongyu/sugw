@@ -1,8 +1,11 @@
 package com.biber.sugw.dao;
 
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
-public class Student {
+import java.io.Serializable;
+@ApiModel("学生实体类")
+public class Student implements Serializable {
     @ApiModelProperty(value = "学生id")
     private Integer stdid;
 
